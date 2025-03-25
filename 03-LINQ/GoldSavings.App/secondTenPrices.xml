@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--Gold Prices from NBP-->
+<goldPrices>
+  <goldPrice date="2022-04-29" price="270.89" />
+  <goldPrice date="2022-04-20" price="270.83" />
+  <goldPrice date="2022-05-02" price="270.82" />
+</goldPrices>

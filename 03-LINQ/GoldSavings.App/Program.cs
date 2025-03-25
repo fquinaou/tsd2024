@@ -3,26 +3,39 @@ using GoldSavings.App.Client;
 using GoldSavings.App.Services;
 namespace GoldSavings.App;
 
+using System.Xml.Linq;
+using System.Globalization;
+
+
 class Program
 {
 
     static void savePricesToXml(List<GoldPrice> price, string filepath)
     {
+        try
+    {
         XDocument xmlDocument = new XDocument(
+            new XDeclaration("1.0", "utf-8", "true"),
             new XComment("Gold Prices from NBP"),
             new XElement("goldPrices",
                 price.Select(e => new XElement("goldPrice",
-                    new XAttribute("date", e.Date),
-                    new XAttribute("price", e.Price))
-                )
+                    new XAttribute("date", e.Date.ToString("yyyy-MM-dd")),
+                    new XAttribute("price", e.Price.ToString(CultureInfo.InvariantCulture))
+                ))
             )
         );
-        xmlDocument.Declaration = new XDeclaration("1.0", "utf-8", "true");
         xmlDocument.Save(filepath);
+        Console.WriteLine($"Successfully saved {price.Count} prices to {filepath}");
     }
-
-    static List<GoldPrice> LoadPricesXml(string path)
+    catch (Exception ex)
     {
+        Console.WriteLine($"Error saving XML file: {ex.Message}");
+        throw;
+    }
+    }
+    
+
+    static List<GoldPrice> LoadPricesXml(string path){
         return (
             from e in XElement.Load(path).Elements("goldPrice")
             let dateAttr = e.Attribute("date")
@@ -36,8 +49,7 @@ class Program
             }
         ).ToList();
     }
-    static void Main(string[] args)
-    {
+    static void Main(string[] args){
         Console.WriteLine("Hello, Gold Investor!");
 
         // Step 1: Get gold prices
@@ -224,6 +236,21 @@ class Program
 
         Console.WriteLine("\nGold Analyis Queries with LINQ Completed.");
     
+        //Question 3
+        Console.WriteLine("\nQuestion 3 ");
+
+        string filePath = "secondTenPrices.xml";
+        savePricesToXml(secondTenPrices, filePath);
+
+        Console.WriteLine("\nGold Prices from question 2.c saved to XML file: " + filePath);    
+        // Question 4
+
+        Console.WriteLine("\nQuestion 4 ");
+
+        List<GoldPrice> pricesFromXml = LoadPricesXml(filePath);
+
+        Console.WriteLine("\nGold Prices read from XML:");
+        GoldResultPrinter.PrintPrices(pricesFromXml, "Gold Prices from XML");
 
 
     }
