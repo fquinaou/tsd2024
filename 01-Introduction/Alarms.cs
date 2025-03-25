@@ -19,12 +19,10 @@ public class Alarms
 				cmp++;
 				if(S<=0){
 					break;
-				}
-					
+				}	
 			}
-
 		}
-
+		
         return cmp;
 	}
 
