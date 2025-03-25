@@ -20,19 +20,19 @@ namespace GoldSavings.App.Services
 
 
         //Top (n) Prices Prices
-        public IEnumerable<double> GetTopPrices(int n)
+        public List<GoldPrice> GetTopPrices(int n)
         {
-            return _goldPrices.OrderByDescending(p => p.Price).Take(n).Select(p => p.Price);
+            return _goldPrices.OrderByDescending(p => p.Price).Take(n).ToList();  
         }
 
         //Bottom (n) Prices Prices
 
-        public IEnumerable<double> GetBottomPrices(int n)
+        public List<GoldPrice> GetBottomPrices(int n)
         {
-            return _goldPrices.OrderBy(p => p.Price).Take(n).Select(p => p.Price);
+            return _goldPrices.OrderBy(p => p.Price).Take(n).ToList();
         }
 
-        public (IEnumerable<double> TopPrices, IEnumerable<double> BottomPrices) GetTopBottomLastYearPrices()
+        public (List<GoldPrice> TopPrices, List<GoldPrice> BottomPrices) GetTopBottomLastYearPrices()
         {
             var topPrices = GetTopPrices(3);
             var bottomPrices = GetBottomPrices(3);
@@ -40,15 +40,14 @@ namespace GoldSavings.App.Services
             return (topPrices, bottomPrices);
         }
 
-        public IEnumerable<DateTime> GetDaysWithMoreThanFivePercentGain()
+        public List<GoldPrice> superior(double price)
         {
-            var january2020Prices = _goldPrices.Where(p => p.Date.Year == 2020 && p.Date.Month == 1).ToList();
-            if (!january2020Prices.Any()) return Enumerable.Empty<DateTime>();
+            return _goldPrices.Where(p => p.Price > price).ToList();
+        }
 
-            var initialPrice = january2020Prices.First().Price;
-            var daysWithGain = _goldPrices.Where(p => p.Price > initialPrice * 1.05).Select(p => p.Date);
-
-            return daysWithGain;
+        public List<GoldPrice> SecondTenPricesRank()
+        {
+            return _goldPrices.OrderByDescending(p => p.Price).Skip(10).Take(3).ToList();
         }
     }
 }
