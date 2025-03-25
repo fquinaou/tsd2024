@@ -151,8 +151,8 @@ class Program
 
             List<GoldPrice> goldPricestmp = dataService.GetGoldPrices(startDatetmp, endDatetmp).GetAwaiter().GetResult();
             GoldAnalysisService analysisServicetmp = new GoldAnalysisService(goldPricestmp);
-            var lowestPrice = analysisServicetmp.GetBottomPrices(1).First();
-            lowestByYear.Add(lowestPrice);
+            var lowPrice = analysisServicetmp.GetBottomPrices(1).First();
+            lowestByYear.Add(lowPrice);
         }
 
         GoldAnalysisService analysisService5 = new GoldAnalysisService(lowestByYear);
@@ -163,8 +163,11 @@ class Program
         List<GoldPrice> maxByYear = new List<GoldPrice>();
         for (int year = lowestPrice.Date.Year; year <= 2024; year++)
         {
+
+            DateTime startDatetmp;
+            DateTime endDatetmp;
             if (year == lowestPrice.Date.Year) {
-                startDatetmp = minGlobal.Date.AddDays(1);
+                startDatetmp = lowestPrice.Date.AddDays(1);
                 endDatetmp = new DateTime(year, 12, 31);
             } else {
                 startDatetmp = new DateTime(year, 1, 1);
@@ -180,7 +183,17 @@ class Program
         GoldAnalysisService analysisService6 = new GoldAnalysisService(maxByYear);
 
         GoldPrice maxPrice = analysisService6.GetTopPrices(1).First();
-        
+
+        double roi = (maxPrice.Price - lowestPrice.Price) / lowestPrice.Price * 100;
+
+        // Print results
+        GoldResultPrinter.PrintSingleValue(lowestPrice.Date, "2.e. Best buy date");
+        GoldResultPrinter.PrintSingleValue(maxPrice.Date, "2.e. Best sell date");
+        GoldResultPrinter.PrintSingleValue(Math.Round(roi, 2) + "%", "2.e. Return on investment )");
+
+        Console.WriteLine("\nGold Analyis Queries with LINQ Completed.");
+    
+
 
     }
 }
