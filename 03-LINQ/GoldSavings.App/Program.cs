@@ -5,6 +5,37 @@ namespace GoldSavings.App;
 
 class Program
 {
+
+    static void savePricesToXml(List<GoldPrice> price, string filepath)
+    {
+        XDocument xmlDocument = new XDocument(
+            new XComment("Gold Prices from NBP"),
+            new XElement("goldPrices",
+                price.Select(e => new XElement("goldPrice",
+                    new XAttribute("date", e.Date),
+                    new XAttribute("price", e.Price))
+                )
+            )
+        );
+        xmlDocument.Declaration = new XDeclaration("1.0", "utf-8", "true");
+        xmlDocument.Save(filepath);
+    }
+
+    static List<GoldPrice> LoadPricesXml(string path)
+    {
+        return (
+            from e in XElement.Load(path).Elements("goldPrice")
+            let dateAttr = e.Attribute("date")
+            let priceAttr = e.Attribute("price")
+            where dateAttr != null && priceAttr != null
+            select new GoldPrice
+            {
+                Date = DateTime.Parse(dateAttr.Value),
+                Price = double.Parse(priceAttr.Value, CultureInfo.InvariantCulture)
+
+            }
+        ).ToList();
+    }
     static void Main(string[] args)
     {
         Console.WriteLine("Hello, Gold Investor!");
