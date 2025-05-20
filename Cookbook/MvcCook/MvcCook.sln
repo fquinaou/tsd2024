@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcCook", "MvcCook.csproj", "{FB97C035-E7BA-D56C-41A3-F01C8EE0CB05}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FB97C035-E7BA-D56C-41A3-F01C8EE0CB05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB97C035-E7BA-D56C-41A3-F01C8EE0CB05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB97C035-E7BA-D56C-41A3-F01C8EE0CB05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB97C035-E7BA-D56C-41A3-F01C8EE0CB05}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F17E8CBF-2936-4C52-9E70-08B8AE271668}
+	EndGlobalSection
+EndGlobal
