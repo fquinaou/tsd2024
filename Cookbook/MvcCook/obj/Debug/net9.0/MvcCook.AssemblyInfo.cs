@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MvcCook")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4ec0ba3b5b8ffbab10413154383ea19ff91a6339")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+71f016c6afa62c081c99866bc87ca0191c9c1ccf")]
 [assembly: System.Reflection.AssemblyProductAttribute("MvcCook")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MvcCook")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
